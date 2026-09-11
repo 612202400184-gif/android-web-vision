@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CariTanahRouteImport } from './routes/cari-tanah'
+import { Route as ListingRouteImport } from './routes/listing'
+import { Route as ProfilRouteImport } from './routes/profil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CariTanahRoute = CariTanahRouteImport.update({
+  id: '/cari-tanah',
+  path: '/cari-tanah',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingRoute = ListingRouteImport.update({
+  id: '/listing',
+  path: '/listing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cari-tanah': typeof CariTanahRoute
+  '/listing': typeof ListingRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cari-tanah': typeof CariTanahRoute
+  '/listing': typeof ListingRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cari-tanah': typeof CariTanahRoute
+  '/listing': typeof ListingRoute
+  '/profil': typeof ProfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/cari-tanah' | '/listing' | '/profil'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/cari-tanah' | '/listing' | '/profil'
+  id: '__root__' | '/' | '/cari-tanah' | '/listing' | '/profil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CariTanahRoute: typeof CariTanahRoute
+  ListingRoute: typeof ListingRoute
+  ProfilRoute: typeof ProfilRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cari-tanah': {
+      id: '/cari-tanah'
+      path: '/cari-tanah'
+      fullPath: '/cari-tanah'
+      preLoaderRoute: typeof CariTanahRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listing': {
+      id: '/listing'
+      path: '/listing'
+      fullPath: '/listing'
+      preLoaderRoute: typeof ListingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CariTanahRoute: CariTanahRoute,
+  ListingRoute: ListingRoute,
+  ProfilRoute: ProfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
